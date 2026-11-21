@@ -9,6 +9,13 @@ export interface LetterEntry {
    * zaczynają polskiego słowa, więc ich przykład ma literę w środku. */
   highlightIndex: number
   emoji: string
+  /** Jak TTS ma WYMÓWIĆ nazwę litery (tylko audio — na ekranie zawsze widać
+   * `char`). Litery, które nigdy nie zaczynają polskiego słowa (ą/ę/ń/y),
+   * nie mają w realnej mowie żadnego przykładu wymowy w tej pozycji —
+   * syntezator zgaduje i potrafi np. wymówić samo "ń" tak jak "n". Dla liter
+   * z ustaloną nazwą alfabetyczną (eń, igrek) wymuszamy ją tutaj zamiast
+   * podawać gołą literę. */
+  ttsName?: string
 }
 
 // Pełny polski alfabet — 32 litery (bez dwuznaków sz/cz/rz/ch/dz, które są
@@ -32,7 +39,7 @@ export const ALPHABET: LetterEntry[] = [
   { char: 'ł', upper: 'Ł', exampleWord: 'łyżka', highlightIndex: 0, emoji: '🥄' },
   { char: 'm', upper: 'M', exampleWord: 'miś', highlightIndex: 0, emoji: '🧸' },
   { char: 'n', upper: 'N', exampleWord: 'nos', highlightIndex: 0, emoji: '👃' },
-  { char: 'ń', upper: 'Ń', exampleWord: 'koń', highlightIndex: 2, emoji: '🐎' },
+  { char: 'ń', upper: 'Ń', exampleWord: 'koń', highlightIndex: 2, emoji: '🐎', ttsName: 'eń' },
   { char: 'o', upper: 'O', exampleWord: 'osa', highlightIndex: 0, emoji: '🐝' },
   { char: 'ó', upper: 'Ó', exampleWord: 'ósemka', highlightIndex: 0, emoji: '8️⃣' },
   { char: 'p', upper: 'P', exampleWord: 'piłka', highlightIndex: 0, emoji: '⚽' },
@@ -42,7 +49,7 @@ export const ALPHABET: LetterEntry[] = [
   { char: 't', upper: 'T', exampleWord: 'tygrys', highlightIndex: 0, emoji: '🐯' },
   { char: 'u', upper: 'U', exampleWord: 'ucho', highlightIndex: 0, emoji: '👂' },
   { char: 'w', upper: 'W', exampleWord: 'woda', highlightIndex: 0, emoji: '💧' },
-  { char: 'y', upper: 'Y', exampleWord: 'ryba', highlightIndex: 1, emoji: '🐟' },
+  { char: 'y', upper: 'Y', exampleWord: 'ryba', highlightIndex: 1, emoji: '🐟', ttsName: 'igrek' },
   { char: 'z', upper: 'Z', exampleWord: 'zebra', highlightIndex: 0, emoji: '🦓' },
   { char: 'ź', upper: 'Ź', exampleWord: 'źrebak', highlightIndex: 0, emoji: '🐴' },
   { char: 'ż', upper: 'Ż', exampleWord: 'żaba', highlightIndex: 0, emoji: '🐸' },

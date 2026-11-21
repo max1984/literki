@@ -21,6 +21,11 @@ describe('ALPHABET', () => {
     }
   })
 
+  it('litery, które nigdy nie zaczynają słowa i mają ustaloną nazwę alfabetyczną, mają ttsName (inaczej TTS zgaduje wymowę gołej litery i potrafi np. wymówić "ń" jak "n")', () => {
+    expect(ALPHABET.find((l) => l.char === 'ń')!.ttsName).toBe('eń')
+    expect(ALPHABET.find((l) => l.char === 'y')!.ttsName).toBe('igrek')
+  })
+
   it('każda litera ma niepustą wielką wersję i emoji', () => {
     for (const l of ALPHABET) {
       expect(l.upper.length).toBeGreaterThan(0)

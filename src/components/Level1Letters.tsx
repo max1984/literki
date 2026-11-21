@@ -47,7 +47,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
   }, [])
 
   const playQuestion = () => {
-    speak(`letter-${current.char}`, `${current.char} jak ${current.exampleWord}`)
+    speak(`letter-${current.char}`, `${current.ttsName ?? current.char} jak ${current.exampleWord}`)
   }
 
   const handleAnswer = (char: string) => {
@@ -56,7 +56,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
       setSolved(true)
       setMood('excited')
       markLetter(current.char)
-      speak(`letter-${current.char}`, `${current.char} jak ${current.exampleWord}`)
+      speak(`letter-${current.char}`, `${current.ttsName ?? current.char} jak ${current.exampleWord}`)
       setTimeout(nextQuestion, 1600)
     } else {
       setWrongTap(char)
