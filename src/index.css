@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Andika", system-ui, sans-serif;
+  --color-sky: #5ec8f2;
+  --color-sun: #ffcb47;
+  --color-leaf: #6fcf6f;
+  --color-berry: #ff6f91;
+  --color-owl: #8b6f47;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  /* Dzieci opierają dłonie na ekranie i stukają szybko — bez tego double-tap
+     potrafi przypadkowo przybliżyć/oddalić stronę w Safari na iOS. */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Kafelki liter/sylab/słów nie powinny dać się zaznaczyć jak tekst —
+   dziecko stukające wielokrotnie w ten sam przycisk nie ma zaznaczać słowa. */
+.tile,
+button {
+  user-select: none;
+}
