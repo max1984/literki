@@ -32,7 +32,7 @@ export const ALPHABET: LetterEntry[] = [
   { char: 'ł', upper: 'Ł', exampleWord: 'łyżka', highlightIndex: 0, emoji: '🥄' },
   { char: 'm', upper: 'M', exampleWord: 'miś', highlightIndex: 0, emoji: '🧸' },
   { char: 'n', upper: 'N', exampleWord: 'nos', highlightIndex: 0, emoji: '👃' },
-  { char: 'ń', upper: 'Ń', exampleWord: 'koń', highlightIndex: 2, emoji: '🐴' },
+  { char: 'ń', upper: 'Ń', exampleWord: 'koń', highlightIndex: 2, emoji: '🐎' },
   { char: 'o', upper: 'O', exampleWord: 'osa', highlightIndex: 0, emoji: '🐝' },
   { char: 'ó', upper: 'Ó', exampleWord: 'ósemka', highlightIndex: 0, emoji: '8️⃣' },
   { char: 'p', upper: 'P', exampleWord: 'piłka', highlightIndex: 0, emoji: '⚽' },

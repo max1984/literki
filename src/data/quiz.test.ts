@@ -28,4 +28,15 @@ describe('pickDistractors', () => {
     const rng = () => 0
     expect(pickDistractors('a', 3, rng)).toEqual(pickDistractors('a', 3, rng))
   })
+
+  it('z extraExcluded nigdy nie proponuje litery, którą podpowiada obrazek', () => {
+    // Gdy litera nie jest pierwsza w exampleWord (np. "y" w "ryba"), obrazek
+    // sam podpowiada pierwszą literę słowa — ta nie może być dystraktorem.
+    for (const entry of ALPHABET.filter((l) => l.highlightIndex !== 0)) {
+      const firstLetter = entry.exampleWord[0]
+      for (let i = 0; i < 20; i++) {
+        expect(pickDistractors(entry.char, 5, Math.random, [firstLetter])).not.toContain(firstLetter)
+      }
+    }
+  })
 })

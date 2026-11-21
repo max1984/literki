@@ -19,8 +19,12 @@ function shuffle<T>(items: T[]): T[] {
   return copy
 }
 
-function buildOptions(correct: string): string[] {
-  return shuffle([correct, ...pickDistractors(correct, 3)])
+function buildOptions(entry: LetterEntry): string[] {
+  // Jeśli litera nie jest pierwsza w słowie-przykładzie (np. "y" w "ryba"),
+  // obrazek sam w sobie podpowiada pierwszą literę słowa — trzeba ją
+  // wykluczyć z dystraktorów, żeby obrazek nie naprowadzał na złą odpowiedź.
+  const extraExcluded = entry.highlightIndex !== 0 ? [entry.exampleWord[0]] : []
+  return shuffle([entry.char, ...pickDistractors(entry.char, 3, Math.random, extraExcluded)])
 }
 
 /** Poziom 1: usłysz nazwę litery ("b jak balon"), wybierz ją z czterech. */
@@ -28,7 +32,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
   const { speak } = useSpeech()
   const markLetter = useProgress((s) => s.markLetter)
   const [current, setCurrent] = useState<LetterEntry>(randomLetter)
-  const [options, setOptions] = useState<string[]>(() => buildOptions(current.char))
+  const [options, setOptions] = useState<string[]>(() => buildOptions(current))
   const [solved, setSolved] = useState(false)
   const [wrongTap, setWrongTap] = useState<string | null>(null)
   const [mood, setMood] = useState<MascotMood>('idle')
@@ -36,7 +40,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
   const nextQuestion = useCallback(() => {
     const entry = randomLetter()
     setCurrent(entry)
-    setOptions(buildOptions(entry.char))
+    setOptions(buildOptions(entry))
     setSolved(false)
     setWrongTap(null)
     setMood('idle')
@@ -83,7 +87,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
         </button>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 w-full max-w-xl">
-          <AnimatePresence mode="wait">
+          <AnimatePresence>
             {options.map((char) => (
               <motion.button
                 key={`${current.char}-${char}`}
