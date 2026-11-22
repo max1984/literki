@@ -32,6 +32,11 @@ describe('ALPHABET', () => {
       expect(l.emoji.length).toBeGreaterThan(0)
     }
   })
+
+  it('nie ma duplikatów emoji (każdy obrazek jednoznacznie wskazuje jedną literę)', () => {
+    const emoji = ALPHABET.map((l) => l.emoji)
+    expect(new Set(emoji).size).toBe(emoji.length)
+  })
 })
 
 describe('homophoneGroupOf', () => {

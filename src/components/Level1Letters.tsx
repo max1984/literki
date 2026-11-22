@@ -65,7 +65,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
   }
 
   return (
-    <div className="flex flex-col h-full px-4 py-6">
+    <div className="min-h-full flex flex-col px-4 py-6">
       <div className="flex items-center justify-between w-full max-w-xl mx-auto">
         <button type="button" onClick={onBack} className="text-lg font-bold text-berry">
           ← Wróć
@@ -73,7 +73,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
         <Mascot mood={mood} size={70} />
       </div>
 
-      <div className="flex-1 flex flex-col items-center justify-center gap-6">
+      <div className="m-auto flex flex-col items-center gap-6">
         <p className="text-2xl font-bold text-center text-gray-700">
           Która to litera? <span className="text-4xl">{current.emoji}</span>
         </p>

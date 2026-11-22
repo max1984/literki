@@ -5,9 +5,11 @@ interface ProgressState {
   learnedLetters: string[]
   learnedSyllables: string[]
   learnedWords: string[]
+  learnedEnglishWords: string[]
   markLetter: (char: string) => void
   markSyllable: (syllable: string) => void
   markWord: (word: string) => void
+  markEnglishWord: (word: string) => void
 }
 
 function addUnique(list: string[], value: string): string[] {
@@ -39,9 +41,11 @@ export const useProgress = create<ProgressState>()(
       learnedLetters: [],
       learnedSyllables: [],
       learnedWords: [],
+      learnedEnglishWords: [],
       markLetter: (char) => set((s) => ({ learnedLetters: addUnique(s.learnedLetters, char) })),
       markSyllable: (syllable) => set((s) => ({ learnedSyllables: addUnique(s.learnedSyllables, syllable) })),
       markWord: (word) => set((s) => ({ learnedWords: addUnique(s.learnedWords, word) })),
+      markEnglishWord: (word) => set((s) => ({ learnedEnglishWords: addUnique(s.learnedEnglishWords, word) })),
     }),
     {
       name: 'literki-progress',

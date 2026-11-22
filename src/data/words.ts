@@ -19,6 +19,15 @@ export const WORDS: WordEntry[] = [
   { word: 'ryba', syllables: ['ry', 'ba'], emoji: '🐟' },
   { word: 'kura', syllables: ['ku', 'ra'], emoji: '🐔' },
   { word: 'noga', syllables: ['no', 'ga'], emoji: '🦵' },
+  { word: 'mapa', syllables: ['ma', 'pa'], emoji: '🗺️' },
+  { word: 'żaba', syllables: ['ża', 'ba'], emoji: '🐸' },
+  { word: 'zupa', syllables: ['zu', 'pa'], emoji: '🍲' },
+  { word: 'kino', syllables: ['ki', 'no'], emoji: '🎬' },
+  { word: 'foka', syllables: ['fo', 'ka'], emoji: '🦭' },
+  { word: 'koty', syllables: ['ko', 'ty'], emoji: '🐱' },
+  { word: 'lupa', syllables: ['lu', 'pa'], emoji: '🔍' },
+  { word: 'lama', syllables: ['la', 'ma'], emoji: '🦙' },
+  { word: 'nuta', syllables: ['nu', 'ta'], emoji: '🎵' },
 ]
 
 /** Zbiór unikalnych sylab użytych w WORDS — ćwiczone na poziomie 2. */

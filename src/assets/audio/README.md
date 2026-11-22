@@ -11,6 +11,7 @@ Konwencja nazw plików (nazwa pliku = klucz, rozszerzenie `.mp3`):
 - `letter-<litera>.mp3` — np. `letter-b.mp3` → wypowiedziane "b jak balon"
 - `syllable-<sylaba>.mp3` — np. `syllable-ma.mp3` → wypowiedziana sylaba "ma"
 - `word-<słowo>.mp3` — np. `word-mama.mp3` → wypowiedziane słowo "mama"
+- `en-word-<word>.mp3` — np. `en-word-cat.mp3` → wypowiedziane po angielsku słowo "cat" (poziom 4)
 
 Ważne: to mają być prawdziwe, poprawnie wypowiedziane głoski/sylaby/słowa
 (np. dla `syllable-ma` nagranie mówi "ma", nie literuje "em-a") — na tym

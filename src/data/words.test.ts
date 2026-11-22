@@ -33,6 +33,11 @@ describe('WORDS', () => {
     const words = WORDS.map((w) => w.word)
     expect(new Set(words).size).toBe(words.length)
   })
+
+  it('nie ma duplikatów emoji (każdy obrazek jednoznacznie wskazuje jedno słowo)', () => {
+    const emoji = WORDS.map((w) => w.emoji)
+    expect(new Set(emoji).size).toBe(emoji.length)
+  })
 })
 
 describe('SYLLABLES / SYLLABLE_PARTS', () => {
