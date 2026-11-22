@@ -16,9 +16,29 @@ const AUDIO_MANIFEST: Record<string, string> = Object.fromEntries(
   ])
 )
 
-function pickVoiceForLang(voices: SpeechSynthesisVoice[], lang: string): SpeechSynthesisVoice | undefined {
+/**
+ * Wybiera głos dla `lang` z listy `voices`. Głosy sieciowe
+ * (`localService: false`) bywają zawodne na niektórych przeglądarkach/
+ * urządzeniach — po nieudanym użyciu silnik potrafi po cichu wrócić do
+ * domyślnego głosu systemu (np. polskiego), mimo ustawionego `.voice`/
+ * `.lang`. Jeśli jest dostępny lokalny głos w tym samym języku, wolimy go
+ * od sieciowego.
+ */
+export function pickVoiceForLang(
+  voices: SpeechSynthesisVoice[],
+  lang: string
+): SpeechSynthesisVoice | undefined {
   const base = lang.split('-')[0].toLowerCase()
-  return voices.find((v) => v.lang === lang) ?? voices.find((v) => v.lang.toLowerCase().startsWith(base))
+  const pickLocalFirst = (candidates: SpeechSynthesisVoice[]) =>
+    candidates.find((v) => v.localService) ?? candidates[0]
+
+  const exact = voices.filter((v) => v.lang === lang)
+  if (exact.length > 0) return pickLocalFirst(exact)
+
+  const prefix = voices.filter((v) => v.lang.toLowerCase().startsWith(base))
+  if (prefix.length > 0) return pickLocalFirst(prefix)
+
+  return undefined
 }
 
 /**
@@ -57,7 +77,11 @@ export function useSpeech() {
         return
       }
       if (typeof window === 'undefined' || !('speechSynthesis' in window)) return
-      window.speechSynthesis.cancel()
+      // cancel() tylko gdy faktycznie jest coś do przerwania — wołanie go na
+      // pustej kolejce bywa niepotrzebne.
+      if (window.speechSynthesis.speaking || window.speechSynthesis.pending) {
+        window.speechSynthesis.cancel()
+      }
       const utterance = new SpeechSynthesisUtterance(fallbackText.toLowerCase())
       utterance.lang = lang
       utterance.rate = 0.8
