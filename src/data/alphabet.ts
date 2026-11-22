@@ -62,3 +62,18 @@ export const HOMOPHONE_GROUPS: string[][] = [['u', 'ó']]
 export function homophoneGroupOf(char: string): string[] {
   return HOMOPHONE_GROUPS.find((group) => group.includes(char)) ?? [char]
 }
+
+/**
+ * Fraza ucząca litery, do wyświetlenia i do TTS. Dla liter na początku
+ * słowa klasyczne "b jak balon". Dla liter, które nigdy nie zaczynają
+ * polskiego słowa (ą/ę/ń/y, `highlightIndex !== 0`) — "ń jak w słowie koń",
+ * nie "ń jak koń": to drugie sugerowałoby dziecku, że "ń" jest na początku
+ * "koń", a w rzeczywistości jest na końcu.
+ * `name` to to, co ma zabrzmieć/wyświetlić się jako nazwa litery (sam znak
+ * na ekranie, `ttsName` w mowie — zob. `LetterEntry.ttsName`).
+ */
+export function letterPhrase(entry: LetterEntry, name: string): string {
+  return entry.highlightIndex === 0
+    ? `${name} jak ${entry.exampleWord}`
+    : `${name} jak w słowie ${entry.exampleWord}`
+}

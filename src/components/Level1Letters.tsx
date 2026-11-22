@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { ALPHABET, type LetterEntry } from '../data/alphabet'
+import { ALPHABET, letterPhrase, type LetterEntry } from '../data/alphabet'
 import { pickDistractors } from '../data/quiz'
 import { useSpeech } from '../audio/useSpeech'
 import { useProgress } from '../store/progress'
@@ -47,7 +47,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
   }, [])
 
   const playQuestion = () => {
-    speak(`letter-${current.char}`, `${current.ttsName ?? current.char} jak ${current.exampleWord}`)
+    speak(`letter-${current.char}`, letterPhrase(current, current.ttsName ?? current.char))
   }
 
   const handleAnswer = (char: string) => {
@@ -56,7 +56,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
       setSolved(true)
       setMood('excited')
       markLetter(current.char)
-      speak(`letter-${current.char}`, `${current.ttsName ?? current.char} jak ${current.exampleWord}`)
+      speak(`letter-${current.char}`, letterPhrase(current, current.ttsName ?? current.char))
       setTimeout(nextQuestion, 1600)
     } else {
       setWrongTap(char)
@@ -120,7 +120,7 @@ export function Level1Letters({ onBack }: { onBack: () => void }) {
               exit={{ opacity: 0 }}
               className="text-2xl font-bold text-leaf"
             >
-              Super! {current.char} jak {current.exampleWord} {current.emoji}
+              Super! {letterPhrase(current, current.char)} {current.emoji}
             </motion.p>
           )}
         </AnimatePresence>

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { ALPHABET, homophoneGroupOf, HOMOPHONE_GROUPS } from './alphabet'
+import { ALPHABET, homophoneGroupOf, HOMOPHONE_GROUPS, letterPhrase } from './alphabet'
 
 describe('ALPHABET', () => {
   it('ma dokładnie 32 litery, bez duplikatów', () => {
@@ -36,6 +36,26 @@ describe('ALPHABET', () => {
   it('nie ma duplikatów emoji (każdy obrazek jednoznacznie wskazuje jedną literę)', () => {
     const emoji = ALPHABET.map((l) => l.emoji)
     expect(new Set(emoji).size).toBe(emoji.length)
+  })
+})
+
+describe('letterPhrase', () => {
+  it('dla liter na początku słowa używa klasycznego "X jak słowo"', () => {
+    const b = ALPHABET.find((l) => l.char === 'b')!
+    expect(letterPhrase(b, 'b')).toBe('b jak balon')
+  })
+
+  it('dla liter, które nigdy nie zaczynają słowa, nie sugeruje, że litera jest na początku', () => {
+    const n = ALPHABET.find((l) => l.char === 'ń')!
+    expect(letterPhrase(n, 'eń')).toBe('eń jak w słowie koń')
+    expect(letterPhrase(n, 'eń')).not.toBe('eń jak koń')
+  })
+
+  it('obejmuje każdą literę, która nigdy nie zaczyna słowa (ą, ę, ń, y)', () => {
+    for (const char of ['ą', 'ę', 'ń', 'y']) {
+      const entry = ALPHABET.find((l) => l.char === char)!
+      expect(letterPhrase(entry, char)).toBe(`${char} jak w słowie ${entry.exampleWord}`)
+    }
   })
 })
 
